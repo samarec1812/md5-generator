@@ -1,10 +1,326 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>MD5 generator</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            padding: 25px;
+            background-color: white;
+            color: black;
+            /*font-size: 25px;*/
+        }
+
+        body.dark-theme {
+            background-color: black;
+            color: white;
+        }
+        body.dark-theme div.offcanvas-header {
+            color: white;
+            background-color: black;
+        }
+        body.dark-theme div.offcanvas-header {
+            color: white;
+            background-color: black;
+        }
+        body.dark-theme button.text-reset {
+            color: white;
+            background-color: white;
+        }
+
+        body.dark-theme div.offcanvas-body {
+            color: white;
+            background-color: black;
+        }
+        body.dark-theme label.list-itemv {
+            color: white;
+            background-color: black;
+        }
+
+        .radio-group {
+            text-align: left;
+            padding-top: 80px;
+            padding-left: 35%;
+            padding-right: 30%;
+        }
+        .carousel {
+            padding-top: 70px;
+            padding-left: 15%;
+            padding-right: 15%;
+        }
+        .checkers {
+            /*text-align: center;*/
+            padding-top: 20px;
+            padding-left: 40%;
+            padding-right: 30%
+        }
+        .checkers2 {
+            padding-top: 20px;
+            padding-left: 40%;
+            padding-right: 30%
+        }
+
+        .input-file-section{
+            text-align: center;
+            padding-top: 20px;
+            padding-left: 25%;
+            padding-right: 30%;
+        }
+        .input-text-section {
+            text-align: center;
+            padding-top: 20px;
+            padding-left: 25%;
+            padding-right: 30%;
+        }
+        .check-validation {
+            padding-top: 10px;
+
+        }
+        .check-password {
+            padding-top: 10px;
+
+        }
+        .check-save-file {
+            padding-top: 10px;
+        }
+        .submit-button {
+            text-align: right;
+        }
+
+        .submit-button-text {
+            text-align: right;
+            padding-top: 20px;
+        }
+        .secret-key {
+            text-align: center;
+            padding-top: 20px;
+            padding-left: 30%;
+            padding-right: 15%;
+        }
+        .ranges-key-complexity {
+            text-align: center;
+            padding-top: 10px;
+            padding-left: 25%;
+            padding-right: 30%;
+        }
+        .ranges-key-len {
+            text-align: center;
+            padding-top: 10px;
+            padding-left: 25%;
+            padding-right: 30%;
+        }
+
+
+    </style>
 </head>
 <body>
-$END$
+
+<div class="document-gen" id="app-main">
+<nav class="navbar navbar-light bg-light fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#" onclick=window.location.reload()>MD5 Generator</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3" aria-labelledby="offcanvasNavbarDropdown">
+                    <li class="nav-item dropdown-item">
+                        <a class="nav-link active" aria-current="page" href="#" v-on:click="show_main=false"><label class="list-itemv">Main</label></a>
+                    </li>
+                    <li class="nav-item dropdown-item">
+                        <a class="nav-link" aria-current="page" href="#" v-on:click="show_main=true"><label class="list-itemv">Hashing</label></a>
+                    </li>
+                    <li class="nav-item dropdown-item">
+                        <a class="nav-link" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <label class="list-itemv">About</label>
+                        </a>
+                    </li>
+                    <li class="nav-item"><hr class="dropdown-divider"></li>
+                    <li class="nav-item">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onclick="document.body.classList.toggle('dark-theme')">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Dark theme</label>
+                        </div>
+                    </li>
+                </ul>
+
+
+
+<!--                <form class="d-flex">-->
+<!--                    <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">-->
+<!--                    <button class="btn btn-outline-success" type="submit">Поиск</button>-->
+<!--                </form>-->
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<form class="was-validated"  v-if="show_main">
+    <div class="btn-group col-md-12 radio-group" role="group">
+    <div class="form-check form-check-inline">
+        <input class="btn-check" type="radio" name="flexRadioDefault" id="flexRadioDefault1" autocomplete="off" checked v-on:click="show_input=true">
+        <label class="btn btn-outline-primary btn-lg" for="flexRadioDefault1">
+            Hashing File
+        </label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="btn-check" type="radio" name="flexRadioDefault" id="flexRadioDefault2" autocomplete="off" v-on:click="show_input=false">
+        <label class="btn btn-outline-primary btn-lg" for="flexRadioDefault2">
+            Hashing Text
+        </label>
+    </div>
+    </div>
+    <div class="container " v-if="show_input">
+        <div class="checkers" role="group">
+            <h5 class="options-checkers">Options</h5>
+            <div class="check-validation">
+            <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+            <label class="btn btn-outline-primary d-grid gap-2 col-6" for="btncheck1">Save hash in textfile</label>
+            </div>
+
+            <div class="check-password">
+            <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off" v-on:click="add_password=!add_password">
+            <label class="btn btn-outline-primary d-grid gap-2 col-6" for="btncheck2">Add password</label>
+            </div>
+
+            <div class="check-save-file">
+            <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+            <label class="btn btn-outline-primary d-grid gap-2 col-6" for="btncheck3">Add validation file</label>
+            </div>
+
+            </div>
+
+        <div class="group-secret-key" v-if="add_password">
+        <div class="mb-3 row secret-key">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Password-phrase</label>
+            <div class="col-sm-6">
+                <input type="password" class="form-control" id="inputPassword">
+            </div>
+
+        </div>
+            <div class="ranges-key-complexity">
+            <label for="customRange1" class="form-label">Complexity</label>
+            <input type="range" class="form-range" min="0" max="3" id="customRange1">
+            </div>
+            <div class="ranges-key-len">
+                <label for="customRange2" class="form-label">Length</label>
+                <input type="range" class="form-range" min="1" max="20" id="customRange2">
+            </div>
+        </div>
+        <div class="input-file-section" >
+        <div class="mb-3">
+            <input type="file" class="form-control" aria-label="file example" required>
+            <div class="invalid-feedback">Пример обратной связи неверной формы выбора файла</div>
+        </div>
+
+
+        <div class="submit-button">
+            <button class="btn btn-primary" type="submit" disabled>Send file</button>
+        </div>
+    </div>
+    </div>
+
+    <div class="container" v-else="!show_input">
+        <div class="checkers2" role="group">
+            <h5 class="options-checkers">Options</h5>
+
+            <div class="check-validation">
+                <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off">
+                <label class="btn btn-outline-primary d-grid gap-2 col-6" for="btncheck1">Save hash in textfile</label>
+            </div>
+
+            <div class="check-password">
+                <input type="checkbox" class="btn-check" id="btncheck5" autocomplete="off">
+                <label class="btn btn-outline-primary d-grid gap-2 col-6" for="btncheck2">Add password</label>
+            </div>
+
+        </div>
+        <div class="input-text-section">
+        <div class="form-floating">
+            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+            <label for="floatingTextarea">Text</label>
+        </div>
+        <div class="submit-button-text">
+            <button class="btn btn-primary" type="submit" disabled>Send text</button>
+        </div>
+    </div>
+    </div>
+    </form>
+    <div class="container slider" v-else>
+    <!-- Carousel -->
+        <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="7000">
+                    <img src="md5-slide.png" class="d-block w-70 h-100" alt="...">
+                    <!--            <div class="carousel-caption d-none d-md-block">-->
+                    <!--                <h5>Метка первого слайда</h5>-->
+                    <!--                <p>Некоторый репрезентативный заполнитель для первого слайда.</p>-->
+                    <!--            </div>-->
+                </div>
+                <div class="carousel-item" data-bs-interval="7000">
+                    <img src="https://www.heidelberg-laureate-forum.org/fileadmin/laureaten/Rivest.jpg"  class="d-block w-100 h-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5 class="author" style="color: snow; padding-top: 20%">Автор алгоритма MD5 - Ronald L. Rivest</h5>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://miro.medium.com/max/875/1*lBJR-ZwgsxRCIVBoc12lXw.png" class="d-block w-70 h-95" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3 style="padding-right: 45%; color: white">Пример работы алгоритма MD5</h3>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"  data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Предыдущий</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"  data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Следующий</span>
+            </button>
+        </div>
+
+
+        <div class="second-text">
+            <h1>Executive Summary</h1>
+        <p>This document describes the MD5 message-digest algorithm. The
+            algorithm takes as input a message of arbitrary length and produces
+            as output a 128-bit "fingerprint" or "message digest" of the input.
+            It is conjectured that it is computationally infeasible to produce
+            two messages having the same message digest, or to produce any
+            message having a given prespecified target message digest. The MD5
+            algorithm is intended for digital signature applications, where a
+            large file must be "compressed" in a secure manner before being
+            encrypted with a private (secret) key under a public-key cryptosystem
+            such as RSA.
+        </p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="index.js"></script>
 </body>
 </html>

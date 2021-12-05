@@ -31,8 +31,8 @@ type HashStruct struct {
 }
 
 func (a Services) Run() error {
-	port := os.Getenv("PORT")
-
+	//port := os.Getenv("PORT")
+	port := "8081"
 	fs := http.FileServer(http.Dir("asserts"))
 	http.Handle("/", fs)
 	data := ""
@@ -58,12 +58,15 @@ func (a Services) Run() error {
 		} else if r.Method == "POST" {
 			if r.FormValue("send-text") != "" {
 				dataKey := ""
+				text := r.FormValue("send-text")
+				if r.FormValue("hash-empty-string") == "on" {
+					text = ""
+				}
 				if r.FormValue("check-password") == "on" {
 					fmt.Println(r.FormValue("inputPassword"), reflect.TypeOf(r.FormValue("inputPassword")))
 					password := r.FormValue("inputPassword")
 					dataKey = algo.CalcMD5([]byte(password + Salt))
 				}
-				text := r.FormValue("send-text")
 				dataALl := append([]byte(dataKey), []byte(text)...)
 				data = algo.CalcMD5(dataALl)
 				//data = algo.CalcMD5([]byte(text))

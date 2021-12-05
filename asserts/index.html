@@ -173,13 +173,13 @@
 <div class="was-validated"  v-if="show_main">
     <div class="btn-group col-md-12 radio-group" role="group">
     <div class="form-check form-check-inline">
-        <input class="btn-check" type="radio" name="flexRadioDefault" id="flexRadioDefault1" autocomplete="off" checked v-on:click="show_input=true">
+        <input class="btn-check" type="radio" name="flexRadioDefault1" id="flexRadioDefault1" autocomplete="off" checked v-on:click="show_input=true">
         <label class="btn btn-outline-primary btn-lg" for="flexRadioDefault1">
             Hashing File
         </label>
     </div>
     <div class="form-check form-check-inline">
-        <input class="btn-check" type="radio" name="flexRadioDefault" id="flexRadioDefault2" autocomplete="off" v-on:click="show_input=false">
+        <input class="btn-check" type="radio" name="flexRadioDefault2" id="flexRadioDefault2" autocomplete="off" v-on:click="show_input=false">
         <label class="btn btn-outline-primary btn-lg" for="flexRadioDefault2">
             Hashing Text
         </label>
@@ -264,8 +264,8 @@
             <div class="checkers2" role="group">
                 <h5 class="options-checkers">Options</h5>
                 <div class="check-validation">
-                    <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off" name="check-validation-text">
-                    <label class="btn btn-outline-primary d-grid gap-2 col-6" for="btncheck4">Add validation file</label>
+                    <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off" name="hash-empty-string">
+                    <label class="btn btn-outline-primary d-grid gap-2 col-6" for="btncheck4" title="To calculate the hash of an empty string, write '@' and then send">Hash empty string</label>
                 </div>
 
                 <div class="check-password">

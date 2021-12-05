@@ -31,7 +31,7 @@ type HashStruct struct {
 }
 
 func (a Services) Run() error {
-	port := a.PORT
+	port := os.Getenv("PORT")
 
 	fs := http.FileServer(http.Dir("asserts"))
 	http.Handle("/", fs)
@@ -205,7 +205,7 @@ func (a Services) Run() error {
 
 		}
 	})
-	err := http.ListenAndServe(port, nil)
+	err := http.ListenAndServe(":" + port, nil)
 	if err != nil {
 		log.Fatal(err)
 		return err

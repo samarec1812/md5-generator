@@ -201,7 +201,6 @@ func (a Services) Run() error {
 			} else {
 				http.Redirect(w, r, "/index", http.StatusSeeOther)
 			}
-
 			// defer os.Remove("asserts/hash.txt")
 
 		}

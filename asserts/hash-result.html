@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Result Hash</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        body {
+            padding: 25px;
+            background-color: white;
+            color: black;
+            /*font-size: 25px;*/
+        }
+        /*footer {*/
+        /*    position: absolute;*/
+        /*    left: 0;*/
+        /*    bottom: 0;*/
+        /*    width: 100%;*/
+        /*    height: 80px;*/
+        /*}*/
+        .input-file-section{
+
+            padding-top: 20px;
+            padding-left: 0;
+            padding-right: 50%;
+        }
+        .isvalid-form {
+            padding-left: 90px;
+        }
+        .text-footer {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <a class="navbar-brand" href="#" onclick=window.location.reload()>MD5 Generator</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+<div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Result Hash MD5 : {{ .Hash }}</h1>
+        <p class="col-md-8 fs-4">An MD5 hash is NOT encryption. It is simply a fingerprint of the given input. However, it is a one-way transaction and as such it is almost impossible to reverse engineer an MD5 hash to retrieve the original string.</p>
+        <form method="post"><button class="btn btn-primary btn-lg" type="submit">Return to begin</button></form>
+    </div>
+</div>
+<div>
+{{if .Files}}
+<div class="p-5 mb-4 bg-dark rounded-3">
+        <div class="h-100 p-5 text-white bg-dark rounded-3">
+            <h2>Download text file with hashsum</h2>
+            <p>Save a text file with a hash on your computer so that you can later check the file for changes or use for other purposes</p>
+            <form method="get"><button class="btn btn-outline-light" name="download" value="on" type="submit">Download file</button></form>
+        </div>
+</div>
+{{end}}
+</div>
+<div>
+    {{if .CheckFileValid}}
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="h-100 p-5 text-black bg-light rounded-3">
+            <h2>Check file valid</h2>
+            <p>Check file on valid</p>
+            <form method="post"  enctype="multipart/form-data" >
+                <div class="input-file-section">
+                    <div class="mb-3">
+                        <input type="file" class="form-control" aria-label="file example" name="file-valid" id="file" required>
+                        <div class="invalid-feedback">Enter file please</div>
+                    </div>
+                    <div class="submit-button">
+                        <button class="btn btn-outline-dark" name="check-valid" value="on" type="submit">Send file</button>
+                    </div>
+                </div>
+               </form>
+        </div>
+    </div>
+    {{if .CalculateValidHash}}<div class="isvalid-form">
+    {{if .ValidResult}}
+    <h1>File is valid</h1>
+    {{else}}
+    <h1>File is not valid</h1>
+    {{end}}
+    <p>HashValid: {{ .HashValid}}</p></div>{{end}}
+    {{end}}
+</div>
+
+
+<footer class="pt-3 mt-4 text-muted border-top">
+    <p class="text-footer">&copy; Moscow 2021</p>
+</footer>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+</body>
+</html>

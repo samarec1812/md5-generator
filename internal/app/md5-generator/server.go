@@ -31,8 +31,8 @@ type HashStruct struct {
 }
 
 func (a Services) Run() error {
-	//port := os.Getenv("PORT")
-	port := "8081"
+	port := os.Getenv("PORT")
+	// port := "8081"
 	fs := http.FileServer(http.Dir("asserts"))
 	http.Handle("/", fs)
 	data := ""

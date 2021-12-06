@@ -89,6 +89,7 @@
         }
         .submit-button {
             text-align: right;
+            margin-top: 4%;
         }
 
         .submit-button-text {
@@ -112,6 +113,34 @@
             padding-top: 10px;
             padding-left: 25%;
             padding-right: 30%;
+        }
+        .card {
+            margin-top: 4%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid rgba(0,0,0,.125);
+            border-radius: 0.25rem;
+        }
+        .card-body {
+            flex: 1 1 auto;
+            padding: 1rem 1rem;
+        }
+        .second-text {
+            margin-top: 4%;
+        }
+        .about-main {
+            margin-top: 4%;
+        }
+        .documentation {
+            margin-top: 4%;
+        }
+        .aboutself {
+            margin-top: 4%;
         }
 
 
@@ -139,13 +168,13 @@
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3" aria-labelledby="offcanvasNavbarDropdown">
                     <li class="nav-item dropdown-item">
-                        <a class="nav-link active" aria-current="page" href="#" v-on:click="show_main=false"><label class="list-itemv">Main</label></a>
+                        <a class="nav-link active" aria-current="page" href="#" v-on:click="show_main=false; show_about=false"><label class="list-itemv">Main</label></a>
                     </li>
                     <li class="nav-item dropdown-item">
-                        <a class="nav-link" aria-current="page" href="#" v-on:click="show_main=true"><label class="list-itemv">Hashing</label></a>
+                        <a class="nav-link" aria-current="page" href="#" v-on:click="show_main=true; show_about=false"><label class="list-itemv">Hashing</label></a>
                     </li>
                     <li class="nav-item dropdown-item">
-                        <a class="nav-link" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" v-on:click="show_main=false; show_about=true">
                             <label class="list-itemv">About</label>
                         </a>
                     </li>
@@ -170,7 +199,7 @@
 </nav>
 
 
-<div class="was-validated"  v-if="show_main">
+<div class="was-validated"  v-if="show_main && !show_about">
     <div class="btn-group col-md-12 radio-group" role="group">
     <div class="form-check form-check-inline">
         <input class="btn-check" type="radio" name="flexRadioDefault1" id="flexRadioDefault1" autocomplete="off" checked v-on:click="show_input=true">
@@ -179,7 +208,7 @@
         </label>
     </div>
     <div class="form-check form-check-inline">
-        <input class="btn-check" type="radio" name="flexRadioDefault2" id="flexRadioDefault2" autocomplete="off" v-on:click="show_input=false">
+        <input class="btn-check" type="radio" name="flexRadioDefault1" id="flexRadioDefault2" autocomplete="off" v-on:click="show_input=false">
         <label class="btn btn-outline-primary btn-lg" for="flexRadioDefault2">
             Hashing Text
         </label>
@@ -224,12 +253,14 @@
                 </div>
 
                 <div class="ranges-key-complexity">
-                    <label for="customRange1" class="form-label">Complexity</label>
-                    <input type="range" class="form-range" min="0" max="3" id="customRange1" name="key-complexity">
+                    <label for="complexity1" class="form-label">Complexity</label>
+                    <input type="range" class="form-range" min="0" max="3" id="complexity1" value="0" name="key-complexity" oninput="num.value=this.value">
+                    <output id="num">0</output>
                 </div>
                 <div class="ranges-key-len">
-                    <label for="customRange2" class="form-label">Length</label>
-                    <input type="range" class="form-range" min="1" max="20" id="customRange2" name="key-len">
+                    <label for="key-len1" class="form-label">Length</label>
+                    <input type="range" class="form-range" min="1" max="20" id="key-len1" value="1" name="key-len" oninput="num1.value=this.value">
+                    <output id="num1">1</output>
                 </div>
             </div>
         <div class="input-file-section">
@@ -240,7 +271,6 @@
         <div class="submit-button">
             <button class="btn btn-primary" type="submit" id="submit-button-file" name="submit-button-file">Send file</button>
         </div>
-
         </div>
         </form>
     </div>
@@ -264,8 +294,14 @@
             <div class="checkers2" role="group">
                 <h5 class="options-checkers">Options</h5>
                 <div class="check-validation">
-                    <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off" name="hash-empty-string">
-                    <label class="btn btn-outline-primary d-grid gap-2 col-6" for="btncheck4" title="To calculate the hash of an empty string, write '@' and then send">Hash empty string</label>
+                   <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off" name="hash-empty-string" onclick="ChangeEmptyText()" data-bs-toggle="collapse" data-bs-target="#collapseExample">
+                    <label class="btn btn-outline-primary d-grid gap-2 col-6" for="btncheck4" >Hash empty string</label>
+<!--                    title="To calculate the hash of an empty string, write '@' and then send"-->
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                            To calculate the hash of an empty string, write '@' and then send.
+                        </div>
+                    </div>
                 </div>
 
                 <div class="check-password">
@@ -297,12 +333,14 @@
                 </div>
 
                 <div class="ranges-key-complexity">
-                    <label for="customRange3" class="form-label">Complexity</label>
-                    <input type="range" class="form-range" min="0" max="3" id="customRange3" name="key-complexity-text">
+                    <label for="complexity2" class="form-label">Complexity</label>
+                    <input type="range" class="form-range" min="0" max="3" value="0" id="complexity2" oninput="num2.value=this.value" name="key-complexity-text">
+                    <output id="num2">0</output>
                 </div>
                 <div class="ranges-key-len">
-                    <label for="customRange4" class="form-label">Length</label>
-                    <input type="range" class="form-range" min="1" max="20" id="customRange4" name="key-len-text">
+                    <label for="key-len2" class="form-label">Length</label>
+                    <input type="range" class="form-range" min="1" max="20" value="1" id="key-len2" oninput="num3.value=this.value" name="key-len-text">
+                    <output id="num3">1</output>
                 </div>
             </div>
         <div class="input-text-section">
@@ -320,7 +358,7 @@
         </form>
     </div>
     </div>
-    <div class="container slider" v-else>
+    <div class="container slider" v-else-if="!show_main && !show_about">
     <!-- Carousel -->
         <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
@@ -375,6 +413,49 @@
             such as RSA.
         </p>
         </div>
+    </div>
+    <div v-else>
+<!--        <h1>About</h1>-->
+        <div class="bg-dark text-secondary px-4 py-5 text-center about-main">
+            <div class="py-5">
+                <h1 class="display-5 fw-bold text-white">MD5 Generator</h1>
+                <div class="col-lg-6 mx-auto">
+                    <p class="fs-5 mb-4">Курсовая работа посвящена алгоритму хеширования MD5. В данном проекте использовались следующие технологии:
+                     Go, HTML, CSS, JS, VueJS, Bootstrap, JQuery. </p>
+                    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                        <button type="button" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold" v-on:click="documentation=!documentation; aboutself=false">Documentation</button>
+                        <button type="button" class="btn btn-outline-light btn-lg px-4" v-on:click="aboutself=!aboutself; documentation=false">About</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-if="documentation">
+            <h2 class="documentation">Documentation</h2>
+            <p>MD5 Generator может хешировать как файлы произвольного типа, так и текст введённый с клавиатуры пользователя.
+            <h3>Password</h3>
+            <p>MD5 Generator позволяет пользователю использовать опцию парольной фразы. Парольную фразу можно регулировать по длине
+            и по сложности. </p>
+            <h4>Длина парольной фразы</h4>
+            <p>Длину парольной фразы можно регулировать от минимального значение - 1 до максимального - 20 символов</p>
+            <h4>Сложность парольной фразы</h4>
+            <p>Сложность парольной фразы также можно регулировать.</p>
+            <ul>
+            Доступны 4 уровня сложности:
+                <li>0 - Пароль должен содержать хотя бы одну цифру</li>
+                <li>1 - Пароль должен содержать хотя бы одну букву латинского алфавита и цифру</li>
+                <li>2 - Пароль должен содержать хотя бы одну букву кириллицы, латинского алфавита и цифру</li>
+                <li>3 - Пароль должен содержать хотя бы одну букву кириллицы, латинского алфавита, цифру и специальный символ</li>
+            </ul>
+            </p>
+        </div>
+        <div v-if="aboutself">
+            <h2 class="aboutself">About</h2>
+            <p>Курсовую работу выполнил студент группы А-13-18 Кондратьев Алексей
+            <h3>Тема</h3>
+            <p>57. Программная реализация функции хеширования MD5.</p>
+
+        </div>
+        <div class="b-example-divider mb-0"></div>
     </div>
 </div>
 <script src="https://unpkg.com/vue@next"></script>

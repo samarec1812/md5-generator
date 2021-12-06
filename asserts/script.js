@@ -5,7 +5,10 @@ const app = {
             show_main: false,
             show_input: true,
             add_password: false,
+            show_about: false,
             inputPassword: null,
+            documentation: false,
+            aboutself: false,
             inputPasswordConfirm: null,
             file: null
             }
